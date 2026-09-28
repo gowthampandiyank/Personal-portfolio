@@ -1,0 +1,260 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-main: #F9F9F7;
+    --text-primary: #121212;
+    --text-secondary: #6B6B67;
+    --border-color: #E2E2DE;
+    --card-bg: #FFFFFF;
+    --accent: #E54835;
+    color-scheme: light;
+  }
+
+  .dark {
+    --bg-main: #0D0D0D;
+    --text-primary: #EBEBE8;
+    --text-secondary: #9E9E9A;
+    --border-color: #262624;
+    --card-bg: #141412;
+    --accent: #E54835;
+    color-scheme: dark;
+  }
+
+  /* Strict Zero-Radius Discipline Across Entire Website */
+  *,
+  *::before,
+  *::after {
+    border-radius: 0px !important;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    letter-spacing: 0.015em;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.65;
+  }
+}
+
+/* Smooth, flicker-free background and color transitions when switching themes */
+html,
+body,
+header,
+footer,
+section,
+main,
+nav,
+article,
+aside,
+form,
+dialog,
+button,
+input,
+textarea,
+select,
+.tech-grid-bg {
+  transition-property: background-color, border-color, color, text-decoration-color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Ensure common card, boundary, and text elements also transition colors and borders smoothly */
+div[class*="bg-"],
+div[class*="border-"],
+span[class*="text-"],
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  transition-property: background-color, border-color, color, text-decoration-color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Strictly isolate the custom cursor, toggle knob, and animated layout springs from CSS color/transform delays */
+.pointer-events-none,
+[data-framer-name],
+.no-theme-transition,
+.theme-toggle-knob {
+  transition-property: none !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9D9D5;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #333330;
+}
+
+/* Subtle Technical Grid Lines */
+.tech-grid-bg {
+  background-size: 56px 56px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+}
+
+.dark .tech-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Noise overlay */
+.bg-noise {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.dark .bg-noise {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 0);
+}
+
+/* Smooth Image Transitions */
+.project-card-image {
+  filter: grayscale(100%);
+  transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .project-card-image,
+.project-card-image:hover {
+  filter: grayscale(0%);
+  transform: scale(1.03);
+}
+
+/* Tabular numerals for specs, dates, and order */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Accessible monochromatic focus ring */
+*:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Skeleton Loading Shimmer Keyframes */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-shimmer::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.3) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  animation: shimmer 2s infinite;
+  content: '';
+}
+
+.dark .skeleton-shimmer::after {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.05) 20%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0)
+  );
+}
+
+/* Unified Button Styling Classes */
+.btn-solid-mono {
+  background-color: #111111;
+  color: #FFFFFF;
+  border-radius: 0px !important;
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.dark .btn-solid-mono {
+  background-color: #FFFFFF;
+  color: #111111;
+}
+.btn-solid-mono:hover {
+  background-color: #262626;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.dark .btn-solid-mono:hover {
+  background-color: #E5E5E5;
+}
+.btn-solid-mono:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-outline-mono {
+  background-color: transparent;
+  color: #111111;
+  border: 1px solid #111111;
+  border-radius: 0px !important;
+  font-weight: 700;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .btn-outline-mono {
+  color: #EBEBE8;
+  border-color: #EBEBE8;
+}
+.btn-outline-mono:hover {
+  background-color: #111111;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+.dark .btn-outline-mono:hover {
+  background-color: #EBEBE8;
+  color: #111111;
+}
+.btn-outline-mono:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
