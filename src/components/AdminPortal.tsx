@@ -23,7 +23,6 @@ import {
   ShieldCheck,
   CheckCircle2,
   Paperclip,
-  Film,
   FileText,
   FileCode,
   Image as ImageIcon,

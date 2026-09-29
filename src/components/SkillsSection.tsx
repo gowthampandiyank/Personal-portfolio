@@ -4,11 +4,13 @@ import {
   Database,
   BarChart3,
   FileSpreadsheet,
+  Workflow,
   Calculator,
   TrendingUp,
   Filter,
   PieChart,
   Server,
+  Layers,
   FileCode2,
   Atom,
   Globe,
@@ -34,28 +36,55 @@ import { SkillItem, AttachedFile } from '../types';
 
 const getSkillIcon = (name: string, category: string): LucideIcon => {
   const n = name.toLowerCase();
-  if (n.includes('sql') || n.includes('query')) return Database;
-  if (n.includes('power bi')) return BarChart3;
-  if (n.includes('excel')) return FileSpreadsheet;
-  if (n.includes('dax') || n.includes('model')) return Calculator;
-  if (n.includes('kpi') || n.includes('report')) return TrendingUp;
-  if (n.includes('clean') || n.includes('validat')) return Filter;
-  if (n.includes('eda') || n.includes('explorat')) return PieChart;
-  if (n.includes('postgres') || n.includes('server')) return Server;
-  if (n.includes('vibe') || n.includes('rapid')) return Sparkles;
-  if (n.includes('javascript') || n.includes('js')) return FileCode2;
-  if (n.includes('react')) return Atom;
-  if (n.includes('html')) return Globe;
-  if (n.includes('css')) return Palette;
-  if (n.includes('tailwind')) return Wind;
-  if (n.includes('typescript')) return Terminal;
-  if (n.includes('api') || n.includes('rest')) return Cpu;
-  if (n.includes('git') || n.includes('github')) return GitBranch;
-  if (n.includes('ui') || n.includes('ux') || n.includes('design')) return Layout;
-  if (n.includes('dashboard')) return Activity;
-  if (n.includes('story') || n.includes('analytics')) return LineChart;
-  if (n.includes('supabase') || n.includes('cloud')) return Cloud;
-  return Code2;
+  // 1. Data Pipelines, ETL, & Automated Workflows
+  if (n.includes('pipeline') || n.includes('etl') || n.includes('workflow') || n.includes('ingest') || n.includes('orchestrat')) {
+    return Workflow;
+  }
+  // 2. Relational Databases, SQL & Querying
+  if (n.includes('sql') || n.includes('query') || n.includes('database') || n.includes('postgres') || n.includes('mysql')) {
+    return Database;
+  }
+  // 3. Power BI, Dashboards, & Visual Intelligence
+  if (n.includes('power bi') || n.includes('dashboard') || n.includes('scenario') || n.includes('what-if') || n.includes('barchart')) {
+    return BarChart3;
+  }
+  // 4. Spreadsheets, Power Query, & Financial Modeling
+  if (n.includes('excel') || n.includes('power query') || n.includes('spreadsheet') || n.includes('variance') || n.includes('financial')) {
+    return FileSpreadsheet;
+  }
+  // 5. Data Calculations, Statistical Testing, & DAX Formulas
+  if (n.includes('dax') || n.includes('calc') || n.includes('stat') || n.includes('hypothesis') || n.includes('scipy')) {
+    return Calculator;
+  }
+  // 6. KPIs, Executive Metrics, & Customer Cohorts
+  if (n.includes('kpi') || n.includes('metric') || n.includes('report') || n.includes('cohort') || n.includes('churn') || n.includes('clv') || n.includes('rfm')) {
+    return TrendingUp;
+  }
+  // 7. Data Cleansing, Anomaly Detection, & Filtering
+  if (n.includes('clean') || n.includes('validat') || n.includes('filter') || n.includes('quality') || n.includes('anomaly')) {
+    return Filter;
+  }
+  // 8. Visual Analytics, Exploratory Data Analysis & Tableau
+  if (n.includes('eda') || n.includes('explorat') || n.includes('tableau') || n.includes('pie')) {
+    return PieChart;
+  }
+  // 9. Python, Pandas, & NumPy Data Scripting
+  if (n.includes('python') || n.includes('pandas') || n.includes('numpy')) {
+    return Terminal;
+  }
+  // 10. Star & Snowflake Data Warehouse Schemas
+  if (n.includes('schema') || n.includes('warehouse') || n.includes('star') || n.includes('snowflake')) {
+    return Layers;
+  }
+  // 11. Database Normalization & Indexing
+  if (n.includes('normaliz') || n.includes('index') || n.includes('server')) {
+    return Server;
+  }
+  // 12. Version Control for Data
+  if (n.includes('git') || n.includes('github')) {
+    return GitBranch;
+  }
+  return Database;
 };
 
 export const SkillsSection: React.FC = () => {
@@ -63,7 +92,7 @@ export const SkillsSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedSkillCert, setSelectedSkillCert] = useState<SkillItem | null>(null);
 
-  const categories = ['All', 'Data Analytics & BI', 'Vibe Coding & Web', 'UI / UX & Tools'];
+  const categories = ['All', 'Data Analytics & BI', 'SQL & Data Warehousing', 'Python & ETL Pipelines', 'Financial & KPI Modeling'];
 
   const filteredSkills =
     selectedCategory === 'All'
@@ -101,7 +130,7 @@ export const SkillsSection: React.FC = () => {
               </h2>
             </div>
             <p className="text-xs sm:text-sm font-mono text-[#6B6B67] dark:text-[#9E9E9A] max-w-sm md:text-right">
-              Core proficiencies across business intelligence, SQL data modeling, executive dashboards, and vibe-coded web applications.
+              Core proficiencies across business intelligence, SQL data modeling, executive dashboards, Python pipelines, and predictive analytics.
             </p>
           </div>
 
@@ -129,7 +158,7 @@ export const SkillsSection: React.FC = () => {
         {/* Skills Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E2E2DE] dark:bg-[#262624] border border-[#E2E2DE] dark:border-[#262624] rounded-none overflow-hidden shadow-sm"
+          className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#E2E2DE] dark:bg-[#262624] border border-[#E2E2DE] dark:border-[#262624] rounded-none overflow-hidden shadow-sm"
         >
           <AnimatePresence>
             {filteredSkills.map((skill, index) => {
@@ -194,7 +223,7 @@ export const SkillsSection: React.FC = () => {
         <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-[#6B6B67] dark:text-[#9E9E9A]">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span>Continuously practiced through real-world analytical models and production vibe-coded applications.</span>
+            <span>Continuously practiced through real-world analytical models and enterprise data pipelines.</span>
           </div>
           <span className="tabular-nums">Total Skills: {skills.length}</span>
         </div>
@@ -222,9 +251,9 @@ export const SkillsSection: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              {selectedSkillCert.files?.map((file) => (
+              {selectedSkillCert.files?.map((file, idx) => (
                 <div
-                  key={file.id}
+                  key={file.id || `cert-file-${file.name}-${idx}`}
                   className="p-3.5 bg-[#F5F5F3] dark:bg-[#1A1A18] border border-[#E2E2DE] dark:border-[#262624] rounded-lg flex items-center justify-between gap-3"
                 >
                   <div className="flex items-center gap-3 min-w-0">

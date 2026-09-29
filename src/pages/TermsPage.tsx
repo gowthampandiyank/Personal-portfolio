@@ -55,7 +55,7 @@ export const TermsPage: React.FC = () => {
               3. Portfolio & Technical Project Information
             </h2>
             <p>
-              All materials, case studies, skill descriptions, and technical summaries provided on this site are for informational and demonstration purposes to illustrate professional experience and capabilities in data analytics, business intelligence modeling, and vibe-coded web applications. While we strive to maintain accurate information, we do not warrant that all specifications or external dependencies are always free of error.
+              All materials, case studies, skill descriptions, and technical summaries provided on this site are for informational and demonstration purposes to illustrate professional experience and capabilities in data analytics, business intelligence modeling, and relational database architectures. While we strive to maintain accurate information, we do not warrant that all specifications or external dependencies are always free of error.
             </p>
           </section>
 

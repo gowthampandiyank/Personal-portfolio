@@ -30,21 +30,21 @@ export const AboutPage: React.FC = () => {
               Engineering &amp; Analytical Philosophy
             </span>
             <h2 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#111111] dark:text-[#EBEBE8] mb-6">
-              Analytical Rigor Meets High-Speed Vibe Coding
+              Analytical Rigor Meets Actionable Executive Intelligence
             </h2>
             <div className="space-y-5 text-base text-[#6B6B67] dark:text-[#9E9E9A] leading-relaxed">
               <p>
-                In data analytics, numbers alone are inert without clear dimensional modeling and narrative context. By building automated SQL transformations, Star-schema relational cubes, and calculated DAX measures, Gowtham transforms chaotic datasets into reliable executive business intelligence.
+                In data analytics, numbers alone are inert without clear dimensional modeling and strategic narrative context. By building automated SQL transformations, Star-schema relational warehouses, and sophisticated DAX calculation groups, Gowtham transforms fragmented operational datasets into reliable executive business intelligence.
               </p>
               <p>
-                Paired with modern vibe-coding speed, ideas are translated directly into high-impact, responsive digital applications. Gowtham actively tests, validates, and deploys live projects with micro-interaction precision, resilient state machines, and clean typography.
+                Every analytical model is engineered for real-world decision velocity: from cohort retention matrices and predictive stockout forecasting to multi-currency commercial revenue tracking. Gowtham actively tests data validation rules, optimizes relational queries, and authors clean, human-centered Power BI dashboards that guide executive leadership.
               </p>
             </div>
 
             <div className="mt-10 pt-8 border-t border-[#E2E2DE] dark:border-[#262624] flex items-center gap-6">
               <Link
                 to="/work"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#111111] dark:bg-white hover:bg-neutral-800 dark:hover:bg-neutral-200 text-white dark:text-[#111111] text-xs font-bold uppercase tracking-wider transition-all duration-300 rounded-xl shadow-sm hover:shadow hover:-translate-y-0.5 active:translate-y-0"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#111111] dark:bg-white hover:bg-neutral-800 dark:hover:bg-neutral-200 text-white dark:text-[#111111] text-xs font-bold uppercase tracking-wider transition-all duration-300 rounded-none shadow-sm hover:shadow hover:-translate-y-0.5 active:translate-y-0"
               >
                 <span>View Full Project Vault</span>
                 <ArrowUpRight className="w-4 h-4" />

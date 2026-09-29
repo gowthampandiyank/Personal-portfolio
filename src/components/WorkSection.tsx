@@ -49,7 +49,7 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
             </div>
             <div className="mt-4 md:mt-0 flex flex-col md:items-end gap-2">
               <p className="text-xs sm:text-sm font-mono text-[#6B6B67] dark:text-[#9E9E9A] max-w-sm md:text-right">
-                Production-grade data intelligence solutions and vibe-coded applications complete with documents, datasets, and source code.
+                Production-grade data intelligence solutions and business intelligence dashboards complete with analytical documents, datasets, and SQL queries.
               </p>
             </div>
           </div>

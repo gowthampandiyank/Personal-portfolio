@@ -1,5 +1,5 @@
 -- =========================================================================
--- GOWTHAM PANDIYAN // DATA ANALYST & VIBE CODER PORTFOLIO SCHEMA
+-- GOWTHAM PANDIYAN // DATA ANALYST PORTFOLIO SCHEMA
 -- Supabase PostgreSQL Schema with Row Level Security (RLS)
 -- =========================================================================
 
@@ -10,7 +10,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS public.site_settings (
   id TEXT PRIMARY KEY DEFAULT 'primary',
   name TEXT NOT NULL DEFAULT 'GOWTHAM PANDIYAN',
-  professional_title TEXT NOT NULL DEFAULT 'DATA ANALYST & VIBE CODER',
+  professional_title TEXT NOT NULL DEFAULT 'DATA ANALYST',
   bio TEXT NOT NULL,
   secondary_bio TEXT,
   email TEXT NOT NULL DEFAULT 'gowthampandiyan7@gmail.com',
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.site_settings (
   linkedin TEXT,
   github TEXT,
   resume_url TEXT,
-  status_badge TEXT DEFAULT 'Actively Building & Shipping Projects | Available for Data Analyst & Vibe Coding Roles',
+  status_badge TEXT DEFAULT 'Actively Modeling & Delivering Projects | Available for Data Analyst Roles',
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
@@ -107,9 +107,9 @@ INSERT INTO public.site_settings (id, name, professional_title, bio, secondary_b
 VALUES (
   'primary',
   'GOWTHAM PANDIYAN',
-  'DATA ANALYST & VIBE CODER',
-  'Data Analyst and Vibe Coder based in Chennai, actively building data analytics pipelines, interactive Power BI intelligence dashboards, and high-performance vibe-coded web applications.',
-  'Bridging rapid vibe-coding execution with rigorous data analytical discipline — transforming raw, messy records into structured visual insights, high-speed interactive UI platforms, and automated workflow solutions.',
+  'DATA ANALYST',
+  'Data Analyst based in Chennai, actively building data analytics pipelines, interactive Power BI intelligence dashboards, and optimized SQL data warehouses.',
+  'Bridging rigorous data architecture with strategic business insights — transforming raw, multi-source records into structured star-schema warehouses, statistical predictive models, and high-impact visual decision platforms.',
   'gowthampandiyan7@gmail.com',
   'Tamil Nadu, India',
   'https://linkedin.com/in/gowtham-pandiyan',

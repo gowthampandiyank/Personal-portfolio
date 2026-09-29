@@ -78,7 +78,7 @@ export const Navbar: React.FC = () => {
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Brand wordmark - Clean Vibe Coder identity */}
+          {/* Brand wordmark - Clean Data Analyst identity */}
           <Link
             to="/"
             className="flex items-center gap-2 group focus:outline-none"
@@ -88,7 +88,7 @@ export const Navbar: React.FC = () => {
               GP
             </span>
             <span className="hidden sm:inline-block text-xs font-semibold tracking-widest text-[#6B6B67] dark:text-[#9E9E9A] uppercase">
-              / VIBE CODER
+              / DATA ANALYST
             </span>
           </Link>
 

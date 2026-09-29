@@ -117,7 +117,7 @@ export const PrivacyPolicyPage: React.FC = () => {
             </p>
             <div className="mt-3 p-4 bg-[#EFEFEA] dark:bg-[#141412] border border-[#D9D9D5] dark:border-[#262624] font-mono text-xs text-[#111111] dark:text-[#EBEBE8]">
               <div><strong>Name:</strong> Gowtham Pandiyan</div>
-              <div><strong>Role:</strong> Data Analyst &amp; Vibe Coder</div>
+              <div><strong>Role:</strong> Data Analyst</div>
               <div><strong>Email:</strong> {settings.email}</div>
               <div><strong>Location:</strong> {settings.location}</div>
             </div>

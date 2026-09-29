@@ -24,14 +24,13 @@ export const WorkPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
 
-  const categories = ['All', 'Data', 'Vibe Coding', 'UI / UX'];
+  const categories = ['All', 'Data Analytics', 'Business Intelligence', 'Financial Modeling'];
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
       const matchesCategory =
         selectedCategory === 'All' ||
-        project.category.toLowerCase().includes(selectedCategory.toLowerCase()) ||
-        (selectedCategory === 'Vibe Coding' && (project.category.toLowerCase().includes('web') || project.category.toLowerCase().includes('vibe')));
+        project.category.toLowerCase().includes(selectedCategory.toLowerCase());
 
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
@@ -59,7 +58,7 @@ export const WorkPage: React.FC = () => {
 
             <Link
               to="/admin"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#D9D9D5] dark:border-[#262624] text-xs font-mono uppercase text-[#737373] dark:text-[#9E9E9A] hover:text-[#111111] dark:hover:text-white hover:border-[#111111] dark:hover:border-white transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-none border border-[#D9D9D5] dark:border-[#262624] text-xs font-mono uppercase text-[#737373] dark:text-[#9E9E9A] hover:text-[#111111] dark:hover:text-white hover:border-[#111111] dark:hover:border-white transition-colors"
             >
               <Lock className="w-3.5 h-3.5 text-[#111111] dark:text-white" />
               <span>Admin Console</span>
@@ -72,7 +71,7 @@ export const WorkPage: React.FC = () => {
               Full Project Vault
             </h1>
             <p className="mt-2 text-xs sm:text-sm font-mono text-[#6B6B67] dark:text-[#9E9E9A] max-w-xl">
-              Explore data analytics models, Power BI executive dashboards, and vibe-coded web applications with full document downloads and metrics.
+              Explore enterprise data analytics models, interactive Power BI executive dashboards, and SQL data architectures with documentation and datasets.
             </p>
           </div>
 
@@ -287,7 +286,7 @@ export const WorkPage: React.FC = () => {
 
           {/* Footer */}
           <div className="pt-8 border-t border-[#D9D9D5]/60 dark:border-[#282838] text-center text-xs font-mono text-[#737373] dark:text-[#888899]">
-            © {new Date().getFullYear()} Gowtham Pandiyan — Data Analyst &amp; Vibe Coder.
+            © {new Date().getFullYear()} Gowtham Pandiyan — Data Analyst.
           </div>
         </div>
       </div>

@@ -33,12 +33,12 @@ export const HeroSection: React.FC = () => {
       className="relative min-h-[92vh] flex flex-col justify-between pt-32 pb-16 md:py-28 overflow-hidden tech-grid-bg border-b border-[#D9D9D5] dark:border-[#262624]"
     >
       {/* Subtle ambient luminous glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-neutral-200/50 dark:bg-neutral-800/20 blur-[140px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-r from-[#E54835]/15 via-[#8B5CF6]/12 to-[#06B6D4]/12 blur-[140px] rounded-full pointer-events-none" />
 
-      {/* Main Content Area */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center my-auto">
+      {/* Main Content Area: Left Text, Right Image */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 lg:gap-16 items-center my-auto">
         {/* Left Column: Massive Editorial Typography */}
-        <div className="lg:col-span-7 flex flex-col justify-center">
+        <div className="md:col-span-7 flex flex-col justify-center">
           {/* Eyebrow / Kicker */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
@@ -47,7 +47,7 @@ export const HeroSection: React.FC = () => {
             className="flex items-center gap-3 mb-5 text-xs font-mono tracking-widest text-[#6B6B67] dark:text-[#9E9E9A] uppercase"
           >
             <span className="w-2 h-2 rounded-none bg-[#E54835] inline-block animate-pulse" />
-            <span>{settings.status_badge || 'Actively Building & Shipping Projects | Open to Data Analyst & Vibe Coding Roles'}</span>
+            <span>{settings.status_badge || 'Actively Modeling & Delivering Projects | Open to Data Analyst Roles'}</span>
           </motion.div>
 
           {/* Role Headline */}
@@ -58,8 +58,8 @@ export const HeroSection: React.FC = () => {
             className="overflow-hidden mb-2"
           >
             <h2 className="text-xs sm:text-sm font-mono tracking-widest text-[#E54835] uppercase font-bold flex items-center gap-2">
-              <Code2 className="w-4 h-4 text-[#E54835]" />
-              <span>DATA ANALYST &amp; VIBE CODER</span>
+              <Database className="w-4 h-4 text-[#E54835]" />
+              <span>DATA ANALYST</span>
             </h2>
           </motion.div>
 
@@ -82,9 +82,9 @@ export const HeroSection: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-base sm:text-lg text-[#6B6B67] dark:text-[#9E9E9A] max-w-xl font-normal leading-relaxed mb-10 tracking-normal"
           >
-            Actively building, shipping, and engineering high-impact vibe-coded projects and data analytics platforms.{' '}
+            Specializing in relational SQL data warehousing, business intelligence modeling, and executive Power BI dashboards.{' '}
             <span className="text-[#E54835] font-semibold">
-              Data Analytics / Power BI / SQL Pipelines / Vibe Coding.
+              SQL Pipelines / Star Schemas / Power BI / Statistical Modeling.
             </span>
           </motion.p>
 
@@ -139,46 +139,46 @@ export const HeroSection: React.FC = () => {
             <span aria-hidden="true" className="text-[#D9D9D5] dark:text-[#333330]">·</span>
             <span>Power BI Intelligence</span>
             <span aria-hidden="true" className="text-[#D9D9D5] dark:text-[#333330]">·</span>
-            <span>Vibe Coding &amp; Prototyping</span>
+            <span>Python &amp; Pandas</span>
             <span aria-hidden="true" className="text-[#D9D9D5] dark:text-[#333330]">·</span>
-            <span>React &amp; TypeScript</span>
+            <span>Advanced DAX</span>
             <span aria-hidden="true" className="text-[#D9D9D5] dark:text-[#333330]">·</span>
-            <span>REST APIs &amp; Datasets</span>
+            <span>ETL Pipelines &amp; Datasets</span>
           </motion.div>
         </div>
 
-        {/* Right Column: Parallax Portrait Image & Clean Frame */}
+        {/* Right Column: Hero Section Image on Right Side */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="lg:col-span-5 relative"
+          className="md:col-span-5 relative w-full flex justify-center md:justify-end"
         >
           <div
             onMouseEnter={() => setCursor({ label: 'VIEW', type: 'view' })}
             onMouseLeave={resetCursor}
-            className="relative group mx-auto max-w-sm lg:max-w-none overflow-hidden bg-[#EAEAEA] dark:bg-[#1A1A18] border border-[#E2E2DE] dark:border-[#262624] hover:border-[#111111] dark:hover:border-white transition-colors duration-500 shadow-sm hover:shadow-xl rounded-none"
+            className="relative group mx-auto md:ml-auto max-w-sm md:max-w-none w-full overflow-hidden bg-[#EAEAEA] dark:bg-[#1A1A18] border border-[#E2E2DE] dark:border-[#262624] hover:border-[#111111] dark:hover:border-white transition-colors duration-500 shadow-sm hover:shadow-xl rounded-none"
           >
             {/* The Portrait Image */}
             <img
               src="/src/assets/images/gowtham_portrait_1790451073382.jpg"
-              alt="Gowtham Pandiyan - Data Analyst & Vibe Coder"
+              alt="Gowtham Pandiyan - Data Analyst"
               className="w-full aspect-[3/4] object-cover object-top grayscale contrast-105 group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
               loading="eager"
             />
 
             {/* Corner Technical Frame Markings */}
-            <div className="absolute top-3 left-3 text-[9px] font-mono tracking-widest text-white/90 bg-black/80 px-2.5 py-1 pointer-events-none flex items-center gap-1.5 rounded">
-              <span className="w-1.5 h-1.5 rounded-full bg-white group-hover:animate-ping" />
-              <span>GP // DATA &amp; VIBE CODING</span>
+            <div className="absolute top-3 left-3 text-[9px] font-mono tracking-widest text-white/90 bg-black/80 px-2.5 py-1 pointer-events-none flex items-center gap-1.5 rounded-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E54835] group-hover:animate-ping" />
+              <span>GP // DATA ANALYTICS</span>
             </div>
-            <div className="absolute bottom-3 right-3 text-[9px] font-mono tracking-widest text-white/90 bg-black/80 px-2.5 py-1 pointer-events-none rounded">
+            <div className="absolute bottom-3 right-3 text-[9px] font-mono tracking-widest text-white/90 bg-black/80 px-2.5 py-1 pointer-events-none rounded-none">
               CHENNAI / TN
             </div>
 
             {/* Live Telemetry Reveal Tag */}
-            <div className="absolute bottom-3 left-3 text-[8px] font-mono tracking-widest text-white bg-black/90 border border-white/20 px-2 py-0.5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded">
-              BUILDER // ACTUALLY SHIPPING
+            <div className="absolute bottom-3 left-3 text-[8px] font-mono tracking-widest text-white bg-black/90 border border-white/20 px-2 py-0.5 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-none">
+              ANALYST // DATA &amp; BI MODELING
             </div>
           </div>
         </motion.div>

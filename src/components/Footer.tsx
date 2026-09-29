@@ -29,7 +29,7 @@ export const Footer: React.FC = () => {
               Gowtham Pandiyan
             </div>
             <div className="text-xs font-mono tracking-widest text-[#111111] dark:text-[#EBEBE8] uppercase mt-1 font-bold">
-              Data Analyst &amp; Vibe Coder
+              Data Analyst
             </div>
           </div>
 
@@ -47,7 +47,7 @@ export const Footer: React.FC = () => {
 
             <Link
               to="/admin"
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#111111] dark:bg-[#EBEBE8] text-white dark:text-[#111111] hover:bg-neutral-800 dark:hover:bg-white rounded-lg transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#111111] dark:bg-[#EBEBE8] text-white dark:text-[#111111] hover:bg-neutral-800 dark:hover:bg-white rounded-none transition-colors"
               title="Admin Portal Management (/admin)"
             >
               <Lock className="w-3.5 h-3.5" />
@@ -68,7 +68,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Sub-row */}
         <div className="pt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono">
           <div>
-            © {new Date().getFullYear()} Gowtham Pandiyan. Actively building &amp; shipping data and vibe-coded projects.
+            © {new Date().getFullYear()} Gowtham Pandiyan. Actively modeling &amp; delivering enterprise data analytics solutions.
           </div>
 
           <div className="flex items-center gap-6">

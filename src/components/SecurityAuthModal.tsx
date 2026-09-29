@@ -313,7 +313,7 @@ export const SecurityAuthModal: React.FC = () => {
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { id: 'admin', label: 'Admin', desc: 'Full Console' },
-                    { id: 'developer', label: 'Developer', desc: 'Vibe Coder' },
+                    { id: 'developer', label: 'Data Analyst', desc: 'BI & SQL' },
                     { id: 'viewer', label: 'Viewer', desc: 'Read-Only' },
                   ].map((r) => (
                     <button
@@ -325,14 +325,14 @@ export const SecurityAuthModal: React.FC = () => {
                           setEmail('gowthampandiyan7@gmail.com');
                           setPassword('admin123');
                         } else if (r.id === 'developer') {
-                          setEmail('developer@vibecoding.dev');
-                          setPassword('vibecoder123');
+                          setEmail('analyst@gowthampandiyan.com');
+                          setPassword('analyst123');
                         } else {
                           setEmail('guest@company.org');
                           setPassword('guest123');
                         }
                       }}
-                      className={`p-2.5 rounded-lg border text-left transition-all ${
+                      className={`p-2.5 rounded-none border text-left transition-all ${
                         selectedRole === r.id
                           ? 'border-[#111111] dark:border-white bg-[#111111]/10 dark:bg-white/10 text-[#111111] dark:text-white font-bold'
                           : 'border-[#D9D9D5] dark:border-[#262624] text-[#737373] dark:text-[#9E9E9A] hover:border-[#111111] dark:hover:border-white'

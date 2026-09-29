@@ -1,4 +1,4 @@
-export type SkillCategory = 'Data Analytics & BI' | 'Web Development' | 'UI / UX & Tools' | string;
+export type SkillCategory = 'Data Analytics & BI' | 'SQL & Data Warehousing' | 'Python & ETL Pipelines' | 'Financial & KPI Modeling' | string;
 
 export type UserRole = 'admin' | 'developer' | 'viewer' | string;
 
@@ -31,17 +31,6 @@ export interface PermissionSettings {
   requireAdminOtp?: boolean;
   enableTelemetry?: boolean;
   maintenanceMode?: boolean;
-}
-
-export interface EmbroideredApparel {
-  id: string;
-  title: string;
-  category?: string;
-  franchise?: string;
-  price?: number;
-  image_url: string;
-  description?: string;
-  [key: string]: any;
 }
 
 export interface AttachedFile {

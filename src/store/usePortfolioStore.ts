@@ -5,7 +5,6 @@ import {
   ExperienceItem,
   ContactMessage,
   SiteSettings,
-  EmbroideredApparel,
   UserAccount,
   SecuritySession,
   UserRole,
@@ -16,7 +15,6 @@ import {
   initialSkills,
   initialExperience,
   initialSiteSettings,
-  initialFeaturedApparel,
 } from '../data/initialData';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
@@ -32,7 +30,6 @@ interface PortfolioState {
   skills: SkillItem[];
   experience: ExperienceItem[];
   messages: ContactMessage[];
-  featuredApparel: EmbroideredApparel[];
   isLoading: boolean;
   theme: 'light' | 'dark';
   cursor: CursorState;
@@ -82,9 +79,6 @@ interface PortfolioState {
   markMessageRead: (id: string) => Promise<boolean>;
   deleteMessage: (id: string) => Promise<boolean>;
 
-  // Featured Apparel
-  updateApparelItem: (id: string, update: Partial<EmbroideredApparel>) => void;
-
   // Security, RBAC & Auth System
   openSecurityModal: (mode?: 'login' | 'register' | 'forgot_password' | 'admin_reset' | 'otp_verify' | 'session_info') => void;
   closeSecurityModal: () => void;
@@ -103,12 +97,11 @@ interface PortfolioState {
 
 // Local storage keys for state persistence
 const STORAGE_KEYS = {
-  SETTINGS: 'gp_portfolio_settings_v4',
-  PROJECTS: 'gp_portfolio_projects_v4',
-  SKILLS: 'gp_portfolio_skills_v4',
-  EXPERIENCE: 'gp_portfolio_experience_v4',
-  MESSAGES: 'gp_portfolio_messages_v4',
-  APPAREL: 'gp_portfolio_apparel_v1',
+  SETTINGS: 'gp_portfolio_settings_v5',
+  PROJECTS: 'gp_portfolio_projects_v5',
+  SKILLS: 'gp_portfolio_skills_v5',
+  EXPERIENCE: 'gp_portfolio_experience_v5',
+  MESSAGES: 'gp_portfolio_messages_v5',
   THEME: 'gp_portfolio_theme_v1',
   AUTH: 'gp_portfolio_auth_v2',
   USERS: 'gp_portfolio_users_v2',
@@ -144,9 +137,9 @@ const DEFAULT_USERS: UserAccount[] = [
     last_login: new Date().toISOString(),
   },
   {
-    id: 'user-dev-demo',
-    email: 'developer@vibecoding.dev',
-    name: 'Vibe Coder Collaborator',
+    id: 'user-analyst-demo',
+    email: 'analyst@gowthampandiyan.com',
+    name: 'Data Analytics Lead',
     role: 'developer',
     is_verified: true,
     mfa_enabled: false,
@@ -175,7 +168,6 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
     skills: getStored(STORAGE_KEYS.SKILLS, initialSkills),
     experience: getStored(STORAGE_KEYS.EXPERIENCE, initialExperience),
     messages: getStored(STORAGE_KEYS.MESSAGES, []),
-    featuredApparel: getStored(STORAGE_KEYS.APPAREL, initialFeaturedApparel),
     isLoading: false,
     theme: getStored<'light' | 'dark'>(STORAGE_KEYS.THEME, 'light'),
     cursor: { label: '', active: false, type: 'default' },
@@ -482,12 +474,6 @@ export const usePortfolioStore = create<PortfolioState>((set, get) => {
         }
       }
       return true;
-    },
-
-    updateApparelItem: (id, update) => {
-      const updated = get().featuredApparel.map((item) => (item.id === id ? { ...item, ...update } : item));
-      set({ featuredApparel: updated });
-      setStored(STORAGE_KEYS.APPAREL, updated);
     },
 
     // Security Modal & Session Controls

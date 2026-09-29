@@ -38,7 +38,7 @@ export const ExperienceSection: React.FC = () => {
             </h2>
           </div>
           <p className="mt-4 md:mt-0 text-xs sm:text-sm font-mono text-[#6B6B67] dark:text-[#9E9E9A] max-w-xs md:text-right">
-            Practical data modeling, business intelligence reporting, and modern vibe-coding engagements.
+            Practical data modeling, business intelligence reporting, and enterprise SQL data pipeline engagements.
           </p>
         </div>
 
@@ -136,10 +136,10 @@ export const ExperienceSection: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              {selectedExpFiles.files?.map((file) => (
+              {selectedExpFiles.files?.map((file, idx) => (
                 <div
-                  key={file.id}
-                  className="p-3.5 bg-[#F9F9F7] dark:bg-[#1A1A18] border border-[#E2E2DE] dark:border-[#262624] rounded-xl flex items-center justify-between gap-3"
+                  key={file.id || `exp-file-${file.name}-${idx}`}
+                  className="p-3.5 bg-[#F9F9F7] dark:bg-[#1A1A18] border border-[#E2E2DE] dark:border-[#262624] rounded-none flex items-center justify-between gap-3"
                 >
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="w-10 h-10 rounded-lg bg-white dark:bg-[#111111] border border-[#E2E2DE] dark:border-[#262624] flex items-center justify-center shrink-0">

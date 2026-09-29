@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Database, BarChart3, FileSpreadsheet, Code2, LineChart, Cpu, Sparkles } from 'lucide-react';
+import { Database, BarChart3, FileSpreadsheet, Filter, LineChart, TrendingUp } from 'lucide-react';
 import { usePortfolioStore } from '../store/usePortfolioStore';
 
 export const AboutSection: React.FC = () => {
@@ -8,34 +8,34 @@ export const AboutSection: React.FC = () => {
 
   const coreFocusAreas = [
     {
-      title: 'SQL & Relational Data Pipelines',
-      description: 'Engineering high-performance queries, multi-table aggregations, Star-schema data modeling, and automated ETL pipelines to derive actionable business metrics.',
+      title: 'SQL & Relational Data Warehouses',
+      description: 'Engineering high-performance queries, multi-table aggregations, Star and Snowflake schemas, window functions, and automated ETL pipelines to derive actionable business metrics.',
       icon: Database,
     },
     {
       title: 'Business Intelligence & Power BI',
-      description: 'Authoring executive-grade dashboards, sophisticated DAX calculations, KPI scenario what-if modeling, and automated visual drill-through reports.',
+      description: 'Authoring executive-grade dashboards, sophisticated DAX calculations, KPI scenario what-if modeling, automated drill-through reports, and Power BI Service administration.',
       icon: BarChart3,
     },
     {
       title: 'Advanced Excel & Power Query',
-      description: 'Transforming messy transactional records into verified tabular structures using advanced formulas, M-code query scripts, statistical distributions, and validation rules.',
+      description: 'Transforming messy transactional records into verified tabular structures using advanced dynamic array formulas, M-code query scripts, statistical distributions, and validation rules.',
       icon: FileSpreadsheet,
     },
     {
-      title: 'Vibe Coding & Production Shipping',
-      description: 'Actively building, coding, and shipping rapid digital experiences using modern React, TypeScript, Tailwind CSS, Vite, and reactive state management.',
-      icon: Code2,
+      title: 'Python Analytics & Automated ETL',
+      description: 'Building automated data cleaning, transformation, and exploratory data analysis (EDA) scripts using Pandas, NumPy, Seaborn, and scheduled data ingestion pipelines.',
+      icon: Filter,
     },
     {
       title: 'Data Storytelling & Executive Visuals',
-      description: 'Translating complex statistical distributions into intuitive, human-centered visual stories that allow leadership to make decisive, high-confidence moves.',
+      description: 'Translating complex statistical distributions into intuitive, human-centered visual stories that allow executive leadership to make decisive, high-confidence commercial moves.',
       icon: LineChart,
     },
     {
-      title: 'Full-Stack Integrations & Cloud DBs',
-      description: 'Connecting external RESTful endpoints, Supabase PostgreSQL with Row Level Security, and dynamic client data states for seamless user workflows.',
-      icon: Cpu,
+      title: 'Statistical Modeling & KPI Engineering',
+      description: 'Developing cohort retention analysis, customer lifetime value (CLV) clustering, hypothesis validation, and strategic KPI scorecards for cross-functional decision-making.',
+      icon: TrendingUp,
     },
   ];
 
@@ -56,7 +56,7 @@ export const AboutSection: React.FC = () => {
             </h2>
           </div>
           <p className="mt-4 md:mt-0 text-xs sm:text-sm font-mono text-[#6B6B67] dark:text-[#9E9E9A] max-w-xs md:text-right">
-            Where analytical rigor meets high-velocity vibe coding and production engineering.
+            Where analytical rigor meets strategic business intelligence and predictive modeling.
           </p>
         </div>
 
@@ -64,12 +64,12 @@ export const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 mb-20 items-start">
           <div className="lg:col-span-5">
             <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-[#111111] dark:text-[#EBEBE8] leading-snug">
-              Transforming complex data into clear decisions and shipping live, responsive web applications.
+              Transforming complex data architectures into clear executive decisions and automated intelligence.
             </h3>
             <div className="mt-6 flex flex-col space-y-2 text-xs font-mono text-[#6B6B67] dark:text-[#9E9E9A]">
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-[#E54835]">Primary Discipline:</span>
-                <span>Data Analytics &amp; Vibe Coding</span>
+                <span>Data Analytics &amp; Business Intelligence</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-[#111111] dark:text-[#EBEBE8]">Location:</span>
@@ -77,7 +77,7 @@ export const AboutSection: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-[#111111] dark:text-[#EBEBE8]">Engagement:</span>
-                <span>Actively Building &amp; Shipping Projects</span>
+                <span>Actively Modeling &amp; Delivering Projects</span>
               </div>
             </div>
           </div>
@@ -90,17 +90,17 @@ export const AboutSection: React.FC = () => {
               {settings.secondary_bio}
             </p>
             <p>
-              By combining analytical curiosity with modern frontend development speed, Gowtham bridges the gap between deep back-end data architectures and intuitive user experiences — building tools that are both mathematically sound and visually compelling.
+              By combining rigorous statistical thinking with modern business intelligence platforms, Gowtham bridges the gap between deep transactional data warehouses and intuitive executive dashboards — delivering platforms that are both mathematically sound and commercially decisive.
             </p>
           </div>
         </div>
 
-        {/* Technical Focus Grid */}
+        {/* Technical Focus Grid - 3-column layout */}
         <div>
           <h4 className="text-xs font-mono tracking-widest text-[#6B6B67] dark:text-[#9E9E9A] uppercase mb-6 font-bold">
             Core Technical Domains
           </h4>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E2E2DE] dark:bg-[#262624] border border-[#E2E2DE] dark:border-[#262624] rounded-none overflow-hidden shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#E2E2DE] dark:bg-[#262624] border border-[#E2E2DE] dark:border-[#262624] rounded-none overflow-hidden shadow-sm">
             {coreFocusAreas.map((area) => {
               const IconComponent = area.icon;
               return (

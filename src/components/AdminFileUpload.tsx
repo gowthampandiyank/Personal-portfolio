@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import {
   UploadCloud,
   FileText,
-  Film,
+  Video,
   Image as ImageIcon,
   FileCode,
   File,
@@ -166,9 +166,13 @@ export const AdminFileUpload: React.FC<AdminFileUploadProps> = ({
     setIsUrlInputOpen(false);
   };
 
-  const handleRemoveFile = (fileId: string) => {
-    onChange(files.filter((f) => f.id !== fileId));
-    if (previewFile?.id === fileId) {
+  const handleRemoveFile = (fileId?: string, index?: number) => {
+    if (fileId) {
+      onChange(files.filter((f) => f.id !== fileId));
+    } else if (index !== undefined) {
+      onChange(files.filter((_, i) => i !== index));
+    }
+    if (previewFile && ((previewFile.id && previewFile.id === fileId) || (previewFile.name === files[index ?? -1]?.name))) {
       setPreviewFile(null);
     }
   };
@@ -205,7 +209,7 @@ export const AdminFileUpload: React.FC<AdminFileUploadProps> = ({
       case 'image':
         return <ImageIcon className="w-4 h-4 text-blue-500" />;
       case 'video':
-        return <Film className="w-4 h-4 text-purple-500" />;
+        return <Video className="w-4 h-4 text-purple-500" />;
       case 'pdf':
         return <FileText className="w-4 h-4 text-red-500" />;
       case 'doc':
@@ -336,7 +340,7 @@ export const AdminFileUpload: React.FC<AdminFileUploadProps> = ({
             <ImageIcon className="w-4 h-4" />
           </div>
           <div className="p-2.5 bg-purple-500/10 text-purple-500 rounded-sm">
-            <Film className="w-4 h-4" />
+            <Video className="w-4 h-4" />
           </div>
           <div className="p-2.5 bg-red-500/10 text-red-500 rounded-sm">
             <FileText className="w-4 h-4" />
@@ -375,76 +379,79 @@ export const AdminFileUpload: React.FC<AdminFileUploadProps> = ({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-            {files.map((file) => (
-              <div
-                key={file.id}
-                className="p-3 bg-white dark:bg-[#141412] border border-[#D9D9D5] dark:border-[#262624] hover:border-[#111111] dark:hover:border-white transition-colors flex items-center justify-between gap-3 group"
-              >
-                {/* File Thumbnail or Icon */}
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 shrink-0 bg-[#F5F5F3] dark:bg-[#1A1A18] border border-[#D9D9D5] dark:border-[#262624] flex items-center justify-center overflow-hidden rounded-xs">
-                    {file.type === 'image' && file.url.startsWith('data:') ? (
-                      <img src={file.url} alt={file.name} className="w-full h-full object-cover" />
-                    ) : file.type === 'video' ? (
-                      <Film className="w-5 h-5 text-purple-500" />
-                    ) : file.type === 'pdf' ? (
-                      <FileText className="w-5 h-5 text-red-500" />
-                    ) : (
-                      <FileCode className="w-5 h-5 text-emerald-500" />
-                    )}
-                  </div>
+            {files.map((file, idx) => {
+              const fileKey = file.id || `file-${file.name || 'item'}-${idx}`;
+              return (
+                <div
+                  key={fileKey}
+                  className="p-3 bg-white dark:bg-[#141412] border border-[#D9D9D5] dark:border-[#262624] hover:border-[#111111] dark:hover:border-white transition-colors flex items-center justify-between gap-3 group"
+                >
+                  {/* File Thumbnail or Icon */}
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-10 h-10 shrink-0 bg-[#F5F5F3] dark:bg-[#1A1A18] border border-[#D9D9D5] dark:border-[#262624] flex items-center justify-center overflow-hidden rounded-xs">
+                      {file.type === 'image' && file.url.startsWith('data:') ? (
+                        <img src={file.url} alt={file.name} className="w-full h-full object-cover" />
+                      ) : file.type === 'video' ? (
+                        <Video className="w-5 h-5 text-purple-500" />
+                      ) : file.type === 'pdf' ? (
+                        <FileText className="w-5 h-5 text-red-500" />
+                      ) : (
+                        <FileCode className="w-5 h-5 text-emerald-500" />
+                      )}
+                    </div>
 
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <span
-                        className={`text-[9px] font-mono uppercase px-1.5 py-0.2 rounded-xs border font-bold ${getTypeBadgeStyle(
-                          file.type
-                        )}`}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <span
+                          className={`text-[9px] font-mono uppercase px-1.5 py-0.2 rounded-xs border font-bold ${getTypeBadgeStyle(
+                            file.type
+                          )}`}
+                        >
+                          {file.type}
+                        </span>
+                        <span className="text-[10px] font-mono text-[#737373] dark:text-[#9E9E9A]">
+                          {file.size}
+                        </span>
+                      </div>
+                      <div
+                        title={file.name}
+                        className="text-xs font-mono font-medium text-[#111111] dark:text-[#EBEBE8] truncate max-w-[180px] sm:max-w-[140px]"
                       >
-                        {file.type}
-                      </span>
-                      <span className="text-[10px] font-mono text-[#737373] dark:text-[#9E9E9A]">
-                        {file.size}
-                      </span>
-                    </div>
-                    <div
-                      title={file.name}
-                      className="text-xs font-mono font-medium text-[#111111] dark:text-[#EBEBE8] truncate max-w-[180px] sm:max-w-[140px]"
-                    >
-                      {file.name}
+                        {file.name}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Actions: Preview, Download, Delete */}
-                <div className="flex items-center gap-1 shrink-0">
-                  <button
-                    type="button"
-                    onClick={() => setPreviewFile(file)}
-                    title="Preview File"
-                    className="p-1.5 text-[#737373] dark:text-[#9E9E9A] hover:text-[#111111] dark:hover:text-white transition-colors"
-                  >
-                    <Eye className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleDownload(file)}
-                    title="Download File"
-                    className="p-1.5 text-[#737373] dark:text-[#9E9E9A] hover:text-[#111111] dark:hover:text-white transition-colors"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveFile(file.id)}
-                    title="Remove Attachment"
-                    className="p-1.5 text-red-500 hover:text-red-700 transition-colors"
-                  >
-                    <X className="w-3.5 h-3.5" />
-                  </button>
+                  {/* Actions: Preview, Download, Delete */}
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      type="button"
+                      onClick={() => setPreviewFile(file)}
+                      title="Preview File"
+                      className="p-1.5 text-[#737373] dark:text-[#9E9E9A] hover:text-[#111111] dark:hover:text-white transition-colors"
+                    >
+                      <Eye className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDownload(file)}
+                      title="Download File"
+                      className="p-1.5 text-[#737373] dark:text-[#9E9E9A] hover:text-[#111111] dark:hover:text-white transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveFile(file.id, idx)}
+                      title="Remove Attachment"
+                      className="p-1.5 text-red-500 hover:text-red-700 transition-colors"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -503,7 +510,7 @@ export const AdminFileUpload: React.FC<AdminFileUploadProps> = ({
                     </video>
                   ) : (
                     <div className="text-center p-8 space-y-3">
-                      <Film className="w-12 h-12 text-[#111111] dark:text-white mx-auto" />
+                      <Video className="w-12 h-12 text-[#111111] dark:text-white mx-auto" />
                       <p className="text-xs font-mono text-[#737373] dark:text-[#9E9E9A]">
                         External Video Source:
                       </p>
@@ -511,7 +518,7 @@ export const AdminFileUpload: React.FC<AdminFileUploadProps> = ({
                         href={previewFile.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-block px-4 py-2 bg-[#111111] dark:bg-white text-white dark:text-[#111111] text-xs font-mono font-bold uppercase hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all rounded-lg"
+                        className="inline-block px-4 py-2 bg-[#111111] dark:bg-white text-white dark:text-[#111111] text-xs font-mono font-bold uppercase hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all rounded-none"
                       >
                         Open External Video Stream
                       </a>
