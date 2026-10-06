@@ -4,9 +4,7 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
 import { ScrollProgress } from './components/ScrollProgress';
-import { PageLoadingProgress } from './components/PageLoadingProgress';
 import { SmoothScrollProvider } from './components/SmoothScrollProvider';
-import { DataBackgroundAnimation } from './components/DataBackgroundAnimation';
 
 // Pages
 import { HomePage } from './pages/HomePage';
@@ -53,19 +51,14 @@ export default function App() {
   }, []);
 
   return (
-    <SmoothScrollProvider>
-      <div className="min-h-screen flex flex-col justify-between selection:bg-[#111111] selection:text-white dark:selection:bg-white dark:selection:text-[#111111] relative">
-        {/* Global auto-moving data animations background */}
-        <DataBackgroundAnimation />
-
+    <>
+      <SmoothScrollProvider>
+        <div className="min-h-screen flex flex-col justify-between selection:bg-[#111111] selection:text-white dark:selection:bg-white dark:selection:text-[#111111] relative pb-16 md:pb-0">
         {/* Custom interactive cursor for desktop */}
         <CustomCursor />
 
         {/* Global Scroll Progress Bar */}
         <ScrollProgress />
-
-        {/* Route Page Transition Loader */}
-        <PageLoadingProgress />
 
         {/* Floating / Sticky Navigation Bar */}
         <Navbar />
@@ -93,5 +86,6 @@ export default function App() {
         <Footer />
       </div>
     </SmoothScrollProvider>
+    </>
   );
 }

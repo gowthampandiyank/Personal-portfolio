@@ -16,9 +16,12 @@ import {
 import { usePortfolioStore } from '../store/usePortfolioStore';
 import { Project } from '../types';
 import { ProjectDetailModal } from '../components/ProjectDetailModal';
+import { ProjectsSkeleton } from '../components/skeletons/ProjectsSkeleton';
+import { TrendArrow } from '../components/TrendArrow';
+import { ExportDataButton } from '../components/ExportDataButton';
 
 export const WorkPage: React.FC = () => {
-  const { projects, openSecurityModal, setCursor, resetCursor } = usePortfolioStore();
+  const { projects, isLoading, openSecurityModal, setCursor, resetCursor } = usePortfolioStore();
 
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -66,13 +69,21 @@ export const WorkPage: React.FC = () => {
           </div>
 
           {/* Page Title */}
-          <div className="mb-10 pb-6 border-b border-[#E2E2DE] dark:border-[#262624]">
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#111111] dark:text-white uppercase">
-              Full Project Vault
-            </h1>
-            <p className="mt-2 text-xs sm:text-sm font-mono text-[#6B6B67] dark:text-[#9E9E9A] max-w-xl">
-              Explore enterprise data analytics models, interactive Power BI executive dashboards, and SQL data architectures with documentation and datasets.
-            </p>
+          <div className="mb-10 pb-6 border-b border-[#E2E2DE] dark:border-[#262624] flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#111111] dark:text-white uppercase">
+                Full Project Vault
+              </h1>
+              <p className="mt-2 text-xs sm:text-sm font-mono text-[#6B6B67] dark:text-[#9E9E9A] max-w-xl">
+                Explore enterprise data analytics models, interactive Power BI executive dashboards, and SQL data architectures with documentation and datasets.
+              </p>
+            </div>
+            <ExportDataButton
+              isSummary={true}
+              label="Export Vault Summary (CSV)"
+              size="md"
+              variant="outline"
+            />
           </div>
 
           {/* Filter Pills - Unified Monochromatic Style */}
@@ -122,7 +133,11 @@ export const WorkPage: React.FC = () => {
           </form>
 
           {/* Projects Collection Grid */}
-          {filteredProjects.length === 0 ? (
+          {isLoading ? (
+            <div className="space-y-16 mb-16">
+              <ProjectsSkeleton count={3} />
+            </div>
+          ) : filteredProjects.length === 0 ? (
             <div className="text-center py-20 bg-white dark:bg-[#141412] border border-[#E2E2DE] dark:border-[#262624] rounded-2xl p-8 mb-16">
               <Layers className="w-8 h-8 text-[#6B6B67] dark:text-[#9E9E9A] mx-auto mb-3" />
               <h3 className="text-lg font-bold text-[#111111] dark:text-white">
@@ -216,19 +231,29 @@ export const WorkPage: React.FC = () => {
                       {project.description}
                     </p>
 
-                    {/* Metrics preview */}
+                    {/* Metrics preview with SVG Trend Arrows */}
                     {project.metrics && project.metrics.length > 0 && (
-                      <div className="grid grid-cols-2 gap-3 mb-6 p-4 rounded-xl bg-white dark:bg-[#141412] border border-[#E2E2DE] dark:border-[#262624]">
-                        {project.metrics.slice(0, 2).map((m, mIdx) => (
-                          <div key={mIdx}>
-                            <span className="text-[10px] font-mono text-[#6B6B67] dark:text-[#9E9E9A] block uppercase">
-                              {m.label}
-                            </span>
-                            <strong className="text-sm font-bold text-[#111111] dark:text-white font-mono">
-                              {m.value}
-                            </strong>
-                          </div>
-                        ))}
+                      <div className="grid grid-cols-2 gap-3 mb-6 p-4 rounded-none bg-white dark:bg-[#141412] border border-[#E2E2DE] dark:border-[#262624]">
+                        {project.metrics.slice(0, 2).map((m, mIdx) => {
+                          const isSpeed = m.label.toLowerCase().includes('speed') || m.label.toLowerCase().includes('latency');
+                          return (
+                            <div key={mIdx}>
+                              <div className="flex items-center justify-between gap-1 mb-1">
+                                <span className="text-[10px] font-mono text-[#6B6B67] dark:text-[#9E9E9A] block uppercase truncate">
+                                  {m.label}
+                                </span>
+                                <TrendArrow
+                                  direction={isSpeed ? 'down' : 'up'}
+                                  value={isSpeed ? '-64%' : '+42%'}
+                                  isPositive={true}
+                                />
+                              </div>
+                              <strong className="text-sm font-bold text-[#111111] dark:text-white font-mono tabular-nums">
+                                {m.value}
+                              </strong>
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
 
@@ -249,11 +274,19 @@ export const WorkPage: React.FC = () => {
                     <div className="flex flex-wrap items-center gap-3">
                       <button
                         onClick={() => setActiveModalProject(project)}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-xl bg-[#111111] dark:bg-white text-white dark:text-[#111111] hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-300 shadow-sm hover:shadow hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98]"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-none bg-[#111111] dark:bg-white text-white dark:text-[#111111] hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-300 shadow-sm hover:shadow hover:-translate-y-0.5 active:translate-y-0"
                       >
                         <Eye className="w-3.5 h-3.5" />
                         <span>Specs &amp; Files</span>
                       </button>
+
+                      {/* Consistent Export Data Button */}
+                      <ExportDataButton
+                        project={project}
+                        size="md"
+                        variant="outline"
+                        label="Export Data"
+                      />
 
                       {project.live_url && (
                         <a

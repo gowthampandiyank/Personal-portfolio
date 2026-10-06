@@ -17,6 +17,9 @@ import {
   Link as LinkIcon
 } from 'lucide-react';
 import { Project } from '../types';
+import { TrendArrow } from './TrendArrow';
+import { ExportDataButton } from './ExportDataButton';
+import { generateProjectDummyCsv, downloadCsvFile } from '../lib/csvExport';
 
 interface ProjectDetailModalProps {
   project: Project | null;
@@ -30,6 +33,15 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
   if (!project) return null;
 
   const handleSimulateDownload = (fileName: string) => {
+    if (
+      fileName.toLowerCase().endsWith('.csv') ||
+      fileName.toLowerCase().includes('data') ||
+      fileName.toLowerCase().includes('dataset') ||
+      fileName.toLowerCase().includes('report')
+    ) {
+      const csvData = generateProjectDummyCsv(project);
+      downloadCsvFile(fileName.endsWith('.csv') ? fileName : `${fileName}.csv`, csvData.content);
+    }
     setDownloadSuccess(`Downloaded "${fileName}" successfully.`);
     setTimeout(() => setDownloadSuccess(null), 3500);
   };
@@ -113,24 +125,65 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
               {/* Key Metrics Grid */}
               {project.metrics && project.metrics.length > 0 && (
                 <div>
-                  <h4 className="text-xs font-mono uppercase tracking-wider text-[#737373] dark:text-[#9E9E9A] mb-3 font-bold flex items-center gap-1.5">
-                    <BarChart2 className="w-3.5 h-3.5 text-[#111111] dark:text-white" />
-                    <span>Verified Project Performance &amp; Metrics</span>
-                  </h4>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                    <h4 className="text-xs font-mono uppercase tracking-wider text-[#737373] dark:text-[#9E9E9A] font-bold flex items-center gap-1.5">
+                      <BarChart2 className="w-3.5 h-3.5 text-[#111111] dark:text-white" />
+                      <span>Verified Project Performance &amp; Metrics</span>
+                    </h4>
+
+                    {/* Consistent Export Data Button */}
+                    <ExportDataButton
+                      project={project}
+                      size="sm"
+                      label="Export Dataset (CSV)"
+                      onExportSuccess={(filename) => handleSimulateDownload(filename)}
+                    />
+                  </div>
+
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    {project.metrics.map((m, idx) => (
-                      <div
-                        key={idx}
-                        className="p-4 rounded-xl bg-[#F5F5F3] dark:bg-[#181816] border border-[#D9D9D5] dark:border-[#262624]"
-                      >
-                        <div className="text-2xl font-black text-[#111111] dark:text-white tabular-nums">
-                          {m.value}
+                    {project.metrics.map((m, idx) => {
+                      const isBoost =
+                        m.label.toLowerCase().includes('boost') ||
+                        m.label.toLowerCase().includes('accuracy') ||
+                        m.label.toLowerCase().includes('processed') ||
+                        m.label.toLowerCase().includes('volume') ||
+                        m.label.toLowerCase().includes('precision') ||
+                        m.label.toLowerCase().includes('authored');
+                      const isSpeed =
+                        m.label.toLowerCase().includes('speed') ||
+                        m.label.toLowerCase().includes('latency') ||
+                        m.label.toLowerCase().includes('load');
+                      const trendDirection = isSpeed ? 'down' : 'up';
+                      const trendVal = isSpeed
+                        ? '-64% delay'
+                        : isBoost
+                        ? '+42% YoY'
+                        : '+18% MoM';
+
+                      return (
+                        <div
+                          key={idx}
+                          className="p-4 bg-[#F5F5F3] dark:bg-[#181816] border border-[#D9D9D5] dark:border-[#262624] flex flex-col justify-between"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between gap-1 mb-1.5">
+                              <span className="text-[10px] font-mono text-[#737373] dark:text-[#9E9E9A] uppercase tracking-wider truncate">
+                                {m.label}
+                              </span>
+                              {/* Integrated SVG Trend Arrow */}
+                              <TrendArrow
+                                direction={trendDirection}
+                                value={trendVal}
+                                isPositive={true}
+                              />
+                            </div>
+                            <div className="text-2xl font-black text-[#111111] dark:text-white tabular-nums font-mono">
+                              {m.value}
+                            </div>
+                          </div>
                         </div>
-                        <div className="text-[11px] font-mono text-[#737373] dark:text-[#9E9E9A] mt-1">
-                          {m.label}
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}

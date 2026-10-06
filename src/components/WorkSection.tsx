@@ -15,6 +15,7 @@ import {
 import { usePortfolioStore } from '../store/usePortfolioStore';
 import { Project } from '../types';
 import { ProjectDetailModal } from './ProjectDetailModal';
+import { ProjectsSkeleton } from './skeletons/ProjectsSkeleton';
 
 interface WorkSectionProps {
   limit?: number;
@@ -25,8 +26,12 @@ export const WorkSection: React.FC<WorkSectionProps> = ({
   limit,
   showViewAll = false,
 }) => {
-  const { projects, setCursor, resetCursor } = usePortfolioStore();
+  const { projects, isLoading, setCursor, resetCursor } = usePortfolioStore();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  if (isLoading) {
+    return <ProjectsSkeleton count={limit || 3} />;
+  }
 
   const displayedProjects = limit ? projects.slice(0, limit) : projects;
 

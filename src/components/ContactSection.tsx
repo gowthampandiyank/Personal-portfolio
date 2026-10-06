@@ -8,11 +8,18 @@ import {
   CheckCircle2,
   ArrowUpRight,
   AlertCircle,
+  Database,
+  LineChart,
 } from 'lucide-react';
 import { usePortfolioStore } from '../store/usePortfolioStore';
+import { ContactSkeleton } from './skeletons/ContactSkeleton';
 
 export const ContactSection: React.FC = () => {
-  const { settings, submitMessage, setCursor, resetCursor } = usePortfolioStore();
+  const { settings, submitMessage, setCursor, resetCursor, isLoading } = usePortfolioStore();
+
+  if (isLoading) {
+    return <ContactSkeleton />;
+  }
 
   const [formData, setFormData] = useState({
     name: '',
@@ -37,7 +44,7 @@ export const ContactSection: React.FC = () => {
       await submitMessage({
         name: formData.name,
         email: formData.email,
-        subject: formData.subject || 'Portfolio Inquiry',
+        subject: formData.subject || 'Data Analytics Inquiry',
         message: formData.message,
       });
 
@@ -55,6 +62,13 @@ export const ContactSection: React.FC = () => {
     }
   };
 
+  // High-end spring physics configuration
+  const springTransition = {
+    type: 'spring',
+    stiffness: 400,
+    damping: 25,
+  };
+
   return (
     <section
       id="contact"
@@ -63,7 +77,7 @@ export const ContactSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="mb-16 pb-8 border-b border-[#E2E2DE] dark:border-[#262624]">
-          <span className="text-xs font-mono tracking-widest text-[#111111] dark:text-[#EBEBE8] uppercase mb-2 block font-bold">
+          <span className="text-xs font-mono tracking-widest text-[#E54835] uppercase mb-2 block font-bold">
             05. Contact &amp; Collaboration
           </span>
           <h2
@@ -79,7 +93,7 @@ export const ContactSection: React.FC = () => {
           <div className="lg:col-span-5 flex flex-col justify-between space-y-8">
             <div>
               <p className="text-sm sm:text-base text-[#6B6B67] dark:text-[#9E9E9A] leading-relaxed mb-8">
-                Have a data analytics challenge, business intelligence dashboard, or modern web application in mind? I'm always open to discussing new opportunities, collaborations, and projects.
+                Have a data analytics initiative, business intelligence dashboard, or relational SQL modeling pipeline in mind? I'm always open to discussing new opportunities, collaborations, and quantitative projects.
               </p>
 
               <div className="space-y-6 text-sm">
@@ -94,30 +108,26 @@ export const ContactSection: React.FC = () => {
                     onMouseLeave={resetCursor}
                     className="text-lg sm:text-xl font-bold text-[#111111] dark:text-[#EBEBE8] hover:underline transition-colors"
                   >
-                    {settings.email}
+                    {settings.email || 'gowthampandiyan7@gmail.com'}
                   </a>
                 </div>
 
                 {/* Location */}
                 <div className="flex flex-col">
                   <span className="text-[11px] font-mono uppercase tracking-widest text-[#6B6B67] dark:text-[#9E9E9A] mb-1.5 font-bold">
-                    Location &amp; Work Hours
+                    Base Location
                   </span>
-                  <span className="text-sm sm:text-base font-semibold text-[#111111] dark:text-[#EBEBE8]">
-                    {settings.location || 'Chennai, Tamil Nadu, India'} (IST / UTC+5:30)
-                  </span>
-                  <span className="text-xs font-mono text-[#6B6B67] dark:text-[#9E9E9A] mt-1">
-                    Open for remote global collaboration and onsite roles
+                  <span className="text-sm text-[#111111] dark:text-[#EBEBE8] font-medium">
+                    Chennai, Tamil Nadu, India (Open to Remote &amp; Relocation)
                   </span>
                 </div>
 
-                {/* Social Networks */}
-                <div className="pt-6 border-t border-[#E2E2DE] dark:border-[#262624] space-y-4">
-                  <span className="text-[11px] font-mono uppercase tracking-widest text-[#6B6B67] dark:text-[#9E9E9A] block font-bold">
-                    Professional Networks
+                {/* Social Connects */}
+                <div className="flex flex-col pt-2">
+                  <span className="text-[11px] font-mono uppercase tracking-widest text-[#6B6B67] dark:text-[#9E9E9A] mb-3 font-bold">
+                    Professional Profiles
                   </span>
-
-                  <div className="flex flex-col space-y-3">
+                  <div className="flex flex-wrap gap-4">
                     <a
                       href={settings.linkedin}
                       target="_blank"
@@ -151,85 +161,159 @@ export const ContactSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Clean Classic Contact Form */}
+          {/* Right Column: Clean Classic Contact Form with High-End Micro-Interactions */}
           <div className="lg:col-span-7">
-            <div className="border border-[#E2E2DE] dark:border-[#262624] bg-white dark:bg-[#141412] p-8 md:p-10 rounded-2xl shadow-xs">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="border border-[#E2E2DE] dark:border-[#262624] bg-white dark:bg-[#141412] p-8 md:p-10 rounded-2xl shadow-xs hover:border-neutral-300 dark:hover:border-neutral-700 transition-colors"
+            >
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name & Email Fields */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
+                  <motion.div
+                    whileHover={{ scale: 1.01, y: -2 }}
+                    transition={springTransition}
+                    className="relative group"
+                  >
                     <label
                       htmlFor="contact-name"
-                      className="block text-xs font-mono uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] mb-2 font-bold"
+                      className="block text-xs font-mono uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] group-hover:text-[#111111] dark:group-hover:text-white mb-2 font-bold transition-colors"
                     >
                       Your Name *
                     </label>
-                    <input
-                      id="contact-name"
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Jane Doe"
-                      className="w-full px-4 py-3 bg-[#F9F9F7] dark:bg-[#0D0D0D] border border-[#E2E2DE] dark:border-[#262624] text-sm text-[#111111] dark:text-[#EBEBE8] focus:border-[#111111] dark:focus:border-white focus:outline-none transition-colors rounded-xl"
-                    />
-                  </div>
+                    <motion.div
+                      whileHover={{
+                        borderColor: '#E54835',
+                        boxShadow: '0 6px 20px -4px rgba(229, 72, 53, 0.15)',
+                      }}
+                      whileFocusWithin={{
+                        borderColor: '#E54835',
+                        boxShadow: '0 0 0 1px rgba(229, 72, 53, 0.35), 0 8px 24px -4px rgba(229, 72, 53, 0.2)',
+                      }}
+                      transition={springTransition}
+                      className="border border-[#E2E2DE] dark:border-[#262624] bg-[#F9F9F7] dark:bg-[#0D0D0D] rounded-xl overflow-hidden"
+                    >
+                      <input
+                        id="contact-name"
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="Jane Doe"
+                        className="w-full px-4 py-3 bg-transparent text-sm text-[#111111] dark:text-[#EBEBE8] focus:outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-600"
+                      />
+                    </motion.div>
+                  </motion.div>
 
-                  <div>
+                  <motion.div
+                    whileHover={{ scale: 1.01, y: -2 }}
+                    transition={springTransition}
+                    className="relative group"
+                  >
                     <label
                       htmlFor="contact-email"
-                      className="block text-xs font-mono uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] mb-2 font-bold"
+                      className="block text-xs font-mono uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] group-hover:text-[#111111] dark:group-hover:text-white mb-2 font-bold transition-colors"
                     >
                       Your Email *
                     </label>
-                    <input
-                      id="contact-email"
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="jane@company.com"
-                      className="w-full px-4 py-3 bg-[#F9F9F7] dark:bg-[#0D0D0D] border border-[#E2E2DE] dark:border-[#262624] text-sm text-[#111111] dark:text-[#EBEBE8] focus:border-[#111111] dark:focus:border-white focus:outline-none transition-colors rounded-xl"
-                    />
-                  </div>
+                    <motion.div
+                      whileHover={{
+                        borderColor: '#E54835',
+                        boxShadow: '0 6px 20px -4px rgba(229, 72, 53, 0.15)',
+                      }}
+                      whileFocusWithin={{
+                        borderColor: '#E54835',
+                        boxShadow: '0 0 0 1px rgba(229, 72, 53, 0.35), 0 8px 24px -4px rgba(229, 72, 53, 0.2)',
+                      }}
+                      transition={springTransition}
+                      className="border border-[#E2E2DE] dark:border-[#262624] bg-[#F9F9F7] dark:bg-[#0D0D0D] rounded-xl overflow-hidden"
+                    >
+                      <input
+                        id="contact-email"
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="jane@company.com"
+                        className="w-full px-4 py-3 bg-transparent text-sm text-[#111111] dark:text-[#EBEBE8] focus:outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-600"
+                      />
+                    </motion.div>
+                  </motion.div>
                 </div>
 
                 {/* Subject Field */}
-                <div>
+                <motion.div
+                  whileHover={{ scale: 1.01, y: -2 }}
+                  transition={springTransition}
+                  className="relative group"
+                >
                   <label
                     htmlFor="contact-subject"
-                    className="block text-xs font-mono uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] mb-2 font-bold"
+                    className="block text-xs font-mono uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] group-hover:text-[#111111] dark:group-hover:text-white mb-2 font-bold transition-colors"
                   >
                     Subject
                   </label>
-                  <input
-                    id="contact-subject"
-                    type="text"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder="e.g. Sales Analytics Dashboard or Web App Initiative"
-                    className="w-full px-4 py-3 bg-[#F9F9F7] dark:bg-[#0D0D0D] border border-[#E2E2DE] dark:border-[#262624] text-sm text-[#111111] dark:text-[#EBEBE8] focus:border-[#111111] dark:focus:border-white focus:outline-none transition-colors rounded-xl"
-                  />
-                </div>
+                  <motion.div
+                    whileHover={{
+                      borderColor: '#E54835',
+                      boxShadow: '0 6px 20px -4px rgba(229, 72, 53, 0.15)',
+                    }}
+                    whileFocusWithin={{
+                      borderColor: '#E54835',
+                      boxShadow: '0 0 0 1px rgba(229, 72, 53, 0.35), 0 8px 24px -4px rgba(229, 72, 53, 0.2)',
+                    }}
+                    transition={springTransition}
+                    className="border border-[#E2E2DE] dark:border-[#262624] bg-[#F9F9F7] dark:bg-[#0D0D0D] rounded-xl overflow-hidden"
+                  >
+                    <input
+                      id="contact-subject"
+                      type="text"
+                      value={formData.subject}
+                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                      placeholder="e.g. Sales Analytics Dashboard or SQL Pipeline Architecture"
+                      className="w-full px-4 py-3 bg-transparent text-sm text-[#111111] dark:text-[#EBEBE8] focus:outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-600"
+                    />
+                  </motion.div>
+                </motion.div>
 
                 {/* Message Field */}
-                <div>
+                <motion.div
+                  whileHover={{ scale: 1.01, y: -2 }}
+                  transition={springTransition}
+                  className="relative group"
+                >
                   <label
                     htmlFor="contact-message"
-                    className="block text-xs font-mono uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] mb-2 font-bold"
+                    className="block text-xs font-mono uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] group-hover:text-[#111111] dark:group-hover:text-white mb-2 font-bold transition-colors"
                   >
                     Message *
                   </label>
-                  <textarea
-                    id="contact-message"
-                    required
-                    rows={5}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Write your message, project goals, or questions here..."
-                    className="w-full px-4 py-3 bg-[#F9F9F7] dark:bg-[#0D0D0D] border border-[#E2E2DE] dark:border-[#262624] text-sm text-[#111111] dark:text-[#EBEBE8] focus:border-[#111111] dark:focus:border-white focus:outline-none transition-colors rounded-xl"
-                  />
-                </div>
+                  <motion.div
+                    whileHover={{
+                      borderColor: '#E54835',
+                      boxShadow: '0 6px 20px -4px rgba(229, 72, 53, 0.15)',
+                    }}
+                    whileFocusWithin={{
+                      borderColor: '#E54835',
+                      boxShadow: '0 0 0 1px rgba(229, 72, 53, 0.35), 0 8px 24px -4px rgba(229, 72, 53, 0.2)',
+                    }}
+                    transition={springTransition}
+                    className="border border-[#E2E2DE] dark:border-[#262624] bg-[#F9F9F7] dark:bg-[#0D0D0D] rounded-xl overflow-hidden"
+                  >
+                    <textarea
+                      id="contact-message"
+                      required
+                      rows={5}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Share your analytical requirements, data sources, or project goals..."
+                      className="w-full px-4 py-3 bg-transparent text-sm text-[#111111] dark:text-[#EBEBE8] focus:outline-none resize-y placeholder:text-neutral-400 dark:placeholder:text-neutral-600"
+                    />
+                  </motion.div>
+                </motion.div>
 
                 {/* Status Notification Alerts */}
                 <AnimatePresence>
@@ -254,32 +338,35 @@ export const ContactSection: React.FC = () => {
                     >
                       <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-500" />
                       <div>
-                        <div className="font-bold">Message Delivered Successfully!</div>
-                        <div>Thank you for reaching out. Gowtham will review your message and reply promptly.</div>
+                        <div className="font-bold">Inquiry Transmitted Successfully</div>
+                        <div>Thank you for reaching out. Gowtham will review your requirements and respond promptly.</div>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
 
-                {/* Submit Action Button - Unified Black & White */}
-                <button
+                {/* Submit Action Button with Spring Physics Micro-Interactions */}
+                <motion.button
                   type="submit"
                   disabled={status === 'submitting'}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98, y: 0 }}
+                  transition={springTransition}
                   onMouseEnter={() => setCursor({ label: 'SEND', type: 'contact' })}
                   onMouseLeave={resetCursor}
-                  className="w-full py-4 bg-[#111111] dark:bg-white text-white dark:text-[#111111] text-xs font-bold uppercase tracking-widest hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-300 flex items-center justify-center gap-2 rounded-xl shadow-sm hover:shadow hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] disabled:opacity-50"
+                  className="w-full py-4 bg-[#111111] dark:bg-white text-white dark:text-[#111111] text-xs font-bold uppercase tracking-widest hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 rounded-xl shadow-sm hover:shadow-md disabled:opacity-50 cursor-pointer group"
                 >
                   {status === 'submitting' ? (
-                    <span>Sending Message...</span>
+                    <span>Transmitting Data...</span>
                   ) : (
                     <>
-                      <span>Send Message</span>
-                      <Send className="w-4 h-4" />
+                      <span>Transmit Inquiry</span>
+                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
                     </>
                   )}
-                </button>
+                </motion.button>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>

@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import { usePortfolioStore } from '../store/usePortfolioStore';
 import { SkillItem, AttachedFile } from '../types';
+import { SkillsSkeleton } from './skeletons/SkillsSkeleton';
 
 const getSkillIcon = (name: string, category: string): LucideIcon => {
   const n = name.toLowerCase();
@@ -88,9 +89,13 @@ const getSkillIcon = (name: string, category: string): LucideIcon => {
 };
 
 export const SkillsSection: React.FC = () => {
-  const { skills, setCursor, resetCursor } = usePortfolioStore();
+  const { skills, isLoading, setCursor, resetCursor } = usePortfolioStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedSkillCert, setSelectedSkillCert] = useState<SkillItem | null>(null);
+
+  if (isLoading) {
+    return <SkillsSkeleton />;
+  }
 
   const categories = ['All', 'Data Analytics & BI', 'SQL & Data Warehousing', 'Python & ETL Pipelines', 'Financial & KPI Modeling'];
 

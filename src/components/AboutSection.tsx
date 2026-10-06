@@ -2,9 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Database, BarChart3, FileSpreadsheet, Filter, LineChart, TrendingUp } from 'lucide-react';
 import { usePortfolioStore } from '../store/usePortfolioStore';
+import { AboutSkeleton } from './skeletons/AboutSkeleton';
 
 export const AboutSection: React.FC = () => {
-  const { settings } = usePortfolioStore();
+  const { settings, isLoading } = usePortfolioStore();
+
+  if (isLoading) {
+    return <AboutSkeleton />;
+  }
 
   const coreFocusAreas = [
     {

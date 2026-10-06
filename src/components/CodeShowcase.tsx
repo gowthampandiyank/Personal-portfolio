@@ -279,10 +279,10 @@ export const CodeShowcase: React.FC = () => {
   };
 
   return (
-    <section className="py-24 md:py-32 bg-[#F9F9F7]/95 dark:bg-[#0D0D0D]/95 border-b border-[#E2E2DE] dark:border-[#262624] relative z-10">
+    <section id="code" className="py-24 md:py-32 bg-transparent border-b border-white/40 dark:border-white/10 relative z-10">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-[#E2E2DE] dark:border-[#262624]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-white/40 dark:border-white/10">
           <div>
             <span className="text-xs font-mono tracking-widest text-[#E54835] uppercase mb-2 block font-bold">
               03. Implementation Rigor
@@ -309,8 +309,8 @@ export const CodeShowcase: React.FC = () => {
                 }}
                 className={`px-5 py-3 text-xs font-mono uppercase tracking-wider font-bold transition-all rounded-none flex items-center gap-2 select-none hover:-translate-y-0.5 active:translate-y-0 ${
                   isActive
-                    ? 'bg-[#111111] dark:bg-white text-white dark:text-[#111111] shadow-sm'
-                    : 'bg-white dark:bg-[#141412] border border-[#E2E2DE] dark:border-[#262624] text-[#6B6B67] dark:text-[#9E9E9A] hover:text-[#111111] dark:hover:text-white hover:border-[#111111] dark:hover:border-white'
+                    ? 'bg-[#111111] dark:bg-white text-white dark:text-[#111111] shadow-md border border-[#111111] dark:border-white'
+                    : 'glass-btn text-[#6B6B67] dark:text-[#9E9E9A] hover:text-[#111111] dark:hover:text-white'
                 }`}
               >
                 {snippet.language === 'sql' && <Database className="w-3.5 h-3.5 text-[#E54835]" />}
@@ -322,16 +322,16 @@ export const CodeShowcase: React.FC = () => {
           })}
         </div>
 
-        {/* The Code Terminal Viewer */}
-        <div className="border border-[#E2E2DE] dark:border-[#262624] bg-white dark:bg-[#080808] rounded-none shadow-md overflow-hidden">
+        {/* The Code Terminal Viewer - Deep Glass Panel */}
+        <div className="glass-panel-deep rounded-none overflow-hidden">
           {/* Terminal Window Header Bar */}
-          <div className="px-5 py-3.5 bg-[#F5F5F3] dark:bg-[#121212] border-b border-[#E2E2DE] dark:border-[#262624] flex flex-wrap items-center justify-between gap-4">
+          <div className="px-5 py-3.5 bg-white/50 dark:bg-white/5 backdrop-blur-xl border-b border-white/50 dark:border-white/10 flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center gap-3 min-w-0">
               {/* Traffic light terminal dots */}
               <div className="flex items-center gap-1.5 shrink-0">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#E54835]/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/80" />
-                <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#E54835]/80 shadow-xs" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]/80 shadow-xs" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#10B981]/80 shadow-xs" />
               </div>
 
               {/* Filename & Target System */}
@@ -340,7 +340,7 @@ export const CodeShowcase: React.FC = () => {
                   {activeSnippet.filename}
                 </span>
                 <span className="text-[#8B8B86] dark:text-[#686862] hidden sm:inline">·</span>
-                <span className="text-[10px] uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] px-2 py-0.5 border border-[#D9D9D5] dark:border-[#262624] rounded-none bg-white dark:bg-[#181816] hidden md:inline">
+                <span className="text-[10px] uppercase tracking-wider text-[#6B6B67] dark:text-[#9E9E9A] px-2 py-0.5 glass-pill rounded-none hidden md:inline">
                   {activeSnippet.badge}
                 </span>
               </div>
@@ -349,10 +349,10 @@ export const CodeShowcase: React.FC = () => {
             {/* Copy to Clipboard Button */}
             <button
               onClick={handleCopy}
-              className={`px-4 py-2 text-xs font-mono uppercase tracking-wider font-bold transition-all flex items-center gap-2 rounded-none border ${
+              className={`px-4 py-2 text-xs font-mono uppercase tracking-wider font-bold transition-all flex items-center gap-2 rounded-none ${
                 copied
-                  ? 'bg-emerald-500 text-white border-emerald-500'
-                  : 'bg-white dark:bg-[#1A1A18] text-[#111111] dark:text-[#EBEBE8] border-[#D9D9D5] dark:border-[#333330] hover:border-[#111111] dark:hover:border-white shadow-xs hover:-translate-y-0.5 active:translate-y-0'
+                  ? 'bg-emerald-500 text-white border border-emerald-500 shadow-md'
+                  : 'glass-btn text-[#111111] dark:text-[#EBEBE8] hover:-translate-y-0.5 active:translate-y-0'
               }`}
               title="Copy code snippet to clipboard"
             >
@@ -371,20 +371,20 @@ export const CodeShowcase: React.FC = () => {
           </div>
 
           {/* Description banner */}
-          <div className="px-6 py-2.5 bg-neutral-50/50 dark:bg-[#0D0D0D] border-b border-[#E2E2DE] dark:border-[#262624] text-xs font-mono text-[#6B6B67] dark:text-[#9E9E9A] flex items-center gap-2">
+          <div className="px-6 py-2.5 bg-white/40 dark:bg-white/5 border-b border-white/40 dark:border-white/10 text-xs font-mono text-[#6B6B67] dark:text-[#9E9E9A] flex items-center gap-2 backdrop-blur-md">
             <ChevronRight className="w-3.5 h-3.5 text-[#E54835] shrink-0" />
             <span>{activeSnippet.description}</span>
           </div>
 
           {/* Syntax Highlighted Code Body */}
-          <div className="p-6 overflow-x-auto max-h-[520px] overflow-y-auto bg-white dark:bg-[#080808]">
+          <div className="p-6 overflow-x-auto max-h-[520px] overflow-y-auto bg-white/30 dark:bg-[#07070b]/60 backdrop-blur-md">
             <div className="table w-full font-mono text-xs">
               {renderHighlightedCode(activeSnippet.code, activeSnippet.language)}
             </div>
           </div>
 
           {/* Footer Status Bar */}
-          <div className="px-6 py-2 bg-[#F5F5F3] dark:bg-[#121212] border-t border-[#E2E2DE] dark:border-[#262624] flex items-center justify-between text-[11px] font-mono text-[#8B8B86] dark:text-[#686862]">
+          <div className="px-6 py-2.5 bg-white/50 dark:bg-white/5 border-t border-white/40 dark:border-white/10 flex items-center justify-between text-[11px] font-mono text-[#8B8B86] dark:text-[#686862] backdrop-blur-md">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-500 inline-block" />
               <span>Target: {activeSnippet.targetPlatform}</span>
